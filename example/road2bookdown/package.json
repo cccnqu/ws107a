@@ -1,0 +1,37 @@
+{
+  "name": "road_to_bookdown",
+  "version": "0.1.0",
+  "description": "A course for web programming by the bookdown project.",
+  "main": "08-bookdown001modulized/server.js",
+  "dependencies": {
+    "co-body": "^4.2.0",
+    "css-modal": "^1.5.0",
+    "handlebars": "^4.0.6",
+    "koa": "^1.3.0",
+    "koa-route": "^2.4.2",
+    "koa-router": "^7.4.0",
+    "koa-session": "^3.4.0",
+    "koa-static": "^2.1.0",
+    "markd": "^1.2.0",
+    "mongodb": "^2.2.15",
+    "mz": "^2.6.0",
+    "object-hash": "^1.1.5",
+    "showdown": "^1.8.6",
+    "walk": "^2.3.9"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "bin": {},
+  "keywords": [],
+  "homepage": "https://github.com/ccckmit/road_to_bookdown",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/ccckmit/road_to_bookdown.git"
+  },
+  "author": {
+    "name": "Chung-Chen Chen",
+    "email": "ccckmit@gmail.com",
+    "url": "http://ccc.nqu.edu.tw"
+  },
+  "license": "MIT"
+}
