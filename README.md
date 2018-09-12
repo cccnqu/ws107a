@@ -15,3 +15,4 @@
 疑問解答   | [issue](https://github.com/cccnqu/ws107a/issues)
 更多資源   | [more](more)
 教材網站   | https://mdbookspace.com/view/ccc/js1.md
+Git 用法   |https://github.com/cccnqu/course/wiki/Git
