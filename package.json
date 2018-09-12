@@ -21,7 +21,16 @@
   "homepage": "https://github.com/cccnqu/ws107a#readme",
   "dependencies": {
     "koa": "^2.5.2",
+    "koa-body": "^4.0.4",
+    "koa-compose": "^4.1.0",
+    "koa-csrf": "^3.0.6",
     "koa-json": "^2.0.2",
-    "koa-static": "^5.0.0"
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.9.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.4",
+    "should": "^3.3.2",
+    "supertest": "^3.3.0"
   }
 }
