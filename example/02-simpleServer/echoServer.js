@@ -11,3 +11,5 @@ http.createServer((req, res) => {
   res.write('headers=' + JSON.stringify(req.headers, null, 2) + '\n')
   res.end()
 }).listen(3000)
+
+console.log('Server runnint at http://localhost:3000/')
