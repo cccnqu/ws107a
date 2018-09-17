@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/cccnqu/ws107a#readme",
   "dependencies": {
+    "kdd": "^1.1.0",
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",
     "koa-compose": "^4.1.0",

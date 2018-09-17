@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="main.css"/>
+  </head>
+  <body>
+  <header>
+    <div id="header">
+    <div class="navbar" style="float:left">
+        <a onclick="Ui.openNav()" style="cursor:pointer">&#9776;</a>
+        <a onclick="Shop.mainPage()" href="#LaPos" style="font-family:Verdana; text-shadow: 1px 0px 1px rgb(243, 243, 154); ">LaPos</a>
+        </div>
+        <div class="navbar" style="float:right">
+        <a href="#title" id="title"></a>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <label id="userName" style="color:white"><i class="fa fa-user"></i></label>
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#login" onclick="User.showLogin()">登入</a>
+            <a href="#logout" onclick="User.logout()">登出</a>
+            <a href="#newShop" onclick="User.newShop()">我要開店</a>
+            <a href="#myShop" onclick="User.myShop()">經營商店</a>
+            <a href="#newShop" onclick="User.findShop()">我要找店</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <label style="color:white">繁體中文</label>
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#en" onclick="Mt.set('en')">English</a>
+            <a href="#tw" onclick="Mt.set('tw')">繁體中文</a>
+            <a href="#cn" onclick="Mt.set('cn')">簡體中文</a>
+            <a href="#jp" onclick="Mt.set('jp')">日本語</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <aside>
+    <div id="leftNav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="Ui.closeNav()">&times;</a>
+      <div id="menu">
+        <a onclick="ShopTable.start()" >商店列表</a>
+        <a onclick="Gmap.start()" >商店地圖</a>
+        <a href="#help">使用說明</a>
+        <a href="#about">關於本軟體</a>
+      </div>
+    </div>
+  </aside>
+  <main>
+    <div id="main" class="table" style="text-align:center">
+      <div class="center" style="text-align:left; margin: 20px;">
+      </div>
+    </div>
+  </main>
+  <footer>
+  </footer>
+  <script src="Ui.js"></script>
+</body>
+</html>
