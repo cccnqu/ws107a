@@ -1,0 +1,6 @@
+{
+  "users": {
+    "root": { "name": "root", "password": "111" },
+    "ccc": { "name": "ccc", "password": "222" }
+  }
+}
