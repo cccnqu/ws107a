@@ -13,7 +13,7 @@ function ignoreAssets(mw) {
       await next();
     } else {
       // must .call() to explicitly set the receiver
-      await mw.call(this, ctx, next);
+      await mw.call(this, ctx, next); // 這裡的 this 是 global
     }
   };
 }

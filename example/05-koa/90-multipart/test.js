@@ -43,6 +43,7 @@ describe('Multipart Files', function() {
       if (err) return done(err);
 
       const files = res.body;
+      console.log('files=', files)
       files.should.have.length(2);
       fs.stat(files[0], function(err) {
         if (err) return done(err);

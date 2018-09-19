@@ -8,6 +8,7 @@ const server = http.createServer(function (req, res) {
   console.log('url=', req.url)
   console.log('method=', req.method)
   console.log('headers=', req.headers)
+  console.log('path=', path)
   const filePath = '.' + path.pathname
   console.log('filePath='+filePath)
 
