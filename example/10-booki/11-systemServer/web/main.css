@@ -7,6 +7,8 @@ aside h6 { color:#d3d3d3; font-size:11px; }
 
 aside li { list-style:none; }
 
+aside { white-space:nowrap; }
+
 .footnote { 
   text-align:center;
   font-family:標楷體;

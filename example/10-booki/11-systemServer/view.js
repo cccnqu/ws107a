@@ -4,23 +4,8 @@ function getUser(ctx) {
   return (ctx.session != null && ctx.session.user !=null)?ctx.session.user:null
 }
 
-V.layout = function (ctx, sideHtml, footHtml, bodyHtml) {
-  let url = ctx.request.url
+V.layout = function (ctx, sideHtml, footHtml, bodyHtml, menuHtml='') {
   let user = getUser(ctx) // <i class="fa fa-user"></i>
-  let menuHtml = (!url.startsWith('/book'))?'':`
-  <div class="dropdown">
-    <button class="dropbtn">
-      <label style="color:white">書籍頁面</label>
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#view" onclick="Ui.showPanel('viewPanel')">檢視</a>
-      <a href="#edit" onclick="Ui.showPanel('editPanel')">編輯</a>
-      <a href="_Sidebar.md">側欄</a>
-      <a href="_Footer.md">腳註</a>
-    </div>
-  </div>
-  `
   return `
   <html>
     <head>
@@ -88,7 +73,21 @@ V.bookPage = function (ctx, page) {
       </form>
     </div>
   `
-  return V.layout(ctx, page.sideHtml, page.footHtml, bodyHtml)
+  const menuHtml = `
+  <div class="dropdown">
+    <button class="dropbtn">
+      <label style="color:white">書籍頁面</label>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="#view" onclick="Ui.showPanel('viewPanel')">檢視</a>
+      <a href="#edit" onclick="Ui.showPanel('editPanel')">編輯</a>
+      <a href="_Sidebar.md">側欄</a>
+      <a href="_Footer.md">腳註</a>
+    </div>
+  </div>
+  `
+  return V.layout(ctx, page.sideHtml, page.footHtml, bodyHtml, menuHtml)
 }
 
 V.loginPage = function (ctx, op) {
@@ -123,6 +122,6 @@ V.loginPage = function (ctx, op) {
       ${html}
     </div>
   </div>
-  `
-  )
+  `, '')
 }
+

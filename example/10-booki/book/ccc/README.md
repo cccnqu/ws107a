@@ -1,5 +1,6 @@
 # 陳鍾誠
 
+
 欄位          | 內容
 --------------|------------------------------------------------------------
 [履歷](https://www.cakeresume.com/f5611f)  | to [學生](cccForStudent.md) , [程式人](cccForProgrammer.md) , [教授](cccForProfessor.md) , [公司](cccForCompany.md)
