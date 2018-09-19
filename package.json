@@ -34,6 +34,7 @@
     "koa-session": "^5.9.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
+    "lodash": "^4.17.11",
     "should": "^3.3.2",
     "supertest": "^3.3.0"
   }
