@@ -1,10 +1,15 @@
 # 模組化寫法
 
 ```
-C:\ccc\ws107a\example\02-npm\03-module>npm run example
+$ C:\ccc\ws107a\example\02-npm\04-test>mocha
 
-> ccclodash@0.0.1 example C:\ccc\ws107a\example\02-npm\03-module
-> node example/chunkEx.js
 
-_.chunk(['a', 'b', 'c', 'd'], 2)= [ [ 'a', 'b' ], [ 'c', 'd' ] ]
+  chunk
+    √ _.chunk(['a', 'b', 'c', 'd'], 2) equalTo [ [ 'a', 'b' ], [ 'c', 'd' ] ]
+    √ _.chunk(['a', 'b', 'c', 'd'], 3) equalTo [ [ 'a', 'b', 'c' ], [ 'd' ] ]
+    √ _.chunk(['a', 'b', 'c', 'd'], 3) notEqualTo [ [ 'a', 'b'], ['c' , 'd' ] ]
+
+
+  3 passing (9ms)
+
 ```
