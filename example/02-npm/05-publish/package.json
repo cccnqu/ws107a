@@ -1,0 +1,12 @@
+{
+  "name": "ccclodash2",
+  "version": "0.0.1",
+  "description": "Reimplement lodash functions",
+  "main": "index.js",
+  "scripts": {
+    "example": "node example/chunkEx.js",
+    "test": "mocha"
+  },
+  "author": "ccc",
+  "license": "MIT"
+}
