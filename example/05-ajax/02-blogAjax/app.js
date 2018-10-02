@@ -1,6 +1,4 @@
 
-// const render = require('./lib/render')
-// const render = require('./render')
 const logger = require('koa-logger')
 const router = require('koa-router')()
 const koaBody = require('koa-body')
@@ -12,7 +10,7 @@ const app = module.exports = new Koa()
 
 // "database"
 
-const posts = [{id: 0, title: 'aaa', body: 'aaa'}, {id: 1, title: 'bbb', body: 'bbb'}]
+const posts = [] // {id: 0, title: 'aaa', body: 'aaa'}, {id: 1, title: 'bbb', body: 'bbb'}
 
 // middleware
 
@@ -69,7 +67,6 @@ async function create (ctx) {
 
 // listen
 
-if (!module.parent) {
-  app.listen(3000)
-  console.log('Server run at http://localhost:3000')
-}
+module.exports = app.listen(3000)
+console.log('Server run at http://localhost:3000')
+

@@ -1,5 +1,7 @@
 # e2e 測試 -- 使用 puppeteer
 
+Puppeteer : Chrome headless browser
+
 e2e : end to end test
 
 ## puppeteer
