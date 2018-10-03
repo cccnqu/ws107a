@@ -38,6 +38,7 @@
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
     "lodash": "^4.17.11",
+    "mz": "^2.7.0",
     "nightwatch": "^0.9.21",
     "puppeteer": "^1.8.0",
     "should": "^3.3.2",

@@ -40,7 +40,7 @@ describe('Body Parsing', function() {
     describe('when no name is sent', function() {
       it('should 400', function(done) {
         request
-        .post('/uppsercase')
+        .post('/uppercase')
         .send('age=10')
         .expect(400, done);
       });
