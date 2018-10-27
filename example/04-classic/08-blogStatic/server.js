@@ -1,9 +1,11 @@
 const V = require('./view')
 const M = require('./model')
+const path = require('path')
 const logger = require('koa-logger')
 const router = require('koa-router')()
 const koaBody = require('koa-body')
 const session = require('koa-session')
+const koaStatic = require('koa-static')
 
 const Koa = require('koa')
 const app = (module.exports = new Koa())
@@ -27,11 +29,14 @@ const CONFIG = {
 app.use(logger())
 app.use(koaBody())
 app.use(session(CONFIG, app))
+app.use(koaStatic(path.join(__dirname, 'public')))
 
 router
   .get('/', home)
   .get('/login', showLogin)
+  .get('/signup', showSignup)
   .post('/login', login)
+  .post('/signup', signup)
   .get('/logout', logout)
   .get('/users', listUsers)
   .get('/:user/posts', userPosts)
@@ -49,12 +54,27 @@ async function showLogin (ctx) {
   ctx.body = V.showLogin()
 }
 
+async function showSignup (ctx) {
+  ctx.body = V.showSignup()
+}
+
 async function login (ctx) {
-  console.log('login: body=', ctx.request.body)
   const passport = ctx.request.body
   if (M.login(passport.user, passport.password)) {
     ctx.session.user = passport.user
     ctx.redirect(`/${passport.user}/posts`)
+  } else {
+    ctx.status = 401
+    ctx.body = '登入失敗！'
+  }
+}
+
+async function signup (ctx) {
+  console.log('signup: body=', ctx.request.body)
+  const passport = ctx.request.body
+  if (M.signup(passport.user)) {
+    M.addUser(passport)
+    ctx.body = '註冊成功！'
   } else {
     ctx.status = 401
     ctx.body = '登入失敗！'

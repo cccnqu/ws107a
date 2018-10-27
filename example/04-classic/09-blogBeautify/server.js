@@ -1,9 +1,11 @@
 const V = require('./view')
 const M = require('./model')
+const path = require('path')
 const logger = require('koa-logger')
 const router = require('koa-router')()
 const koaBody = require('koa-body')
 const session = require('koa-session')
+const koaStatic = require('koa-static')
 
 const Koa = require('koa')
 const app = (module.exports = new Koa())
@@ -27,11 +29,14 @@ const CONFIG = {
 app.use(logger())
 app.use(koaBody())
 app.use(session(CONFIG, app))
+app.use(koaStatic(path.join(__dirname, 'public')))
 
 router
   .get('/', home)
   .get('/login', showLogin)
+  .get('/signup', showSignup)
   .post('/login', login)
+  .post('/signup', signup)
   .get('/logout', logout)
   .get('/users', listUsers)
   .get('/:user/posts', userPosts)
@@ -46,29 +51,47 @@ async function home (ctx) {
 }
 
 async function showLogin (ctx) {
-  ctx.body = V.showLogin()
+  ctx.body = V.showLogin(ctx)
+}
+
+async function showSignup (ctx) {
+  ctx.body = V.showSignup(ctx)
 }
 
 async function login (ctx) {
-  console.log('login: body=', ctx.request.body)
   const passport = ctx.request.body
   if (M.login(passport.user, passport.password)) {
     ctx.session.user = passport.user
     ctx.redirect(`/${passport.user}/posts`)
   } else {
     ctx.status = 401
-    ctx.body = '登入失敗！'
+    ctx.body = V.fail()
+    // ctx.body = '登入失敗！'
+  }
+}
+
+async function signup (ctx) {
+  console.log('signup: body=', ctx.request.body)
+  const passport = ctx.request.body
+  if (M.signup(passport.user)) {
+    M.addUser(passport)
+    ctx.body = V.success()
+    // ctx.body = '註冊成功！'
+  } else {
+    ctx.status = 401
+    ctx.body = V.fail()
+    // ctx.body = '登入失敗！'
   }
 }
 
 async function logout (ctx) {
   ctx.session.user = null
-  ctx.body = V.logout()
+  ctx.body = V.logout(ctx)
 }
 
 async function listUsers (ctx) {
   const users = M.listUsers()
-  ctx.body = await V.listUsers(users)
+  ctx.body = await V.listUsers(users, ctx)
 }
 
 async function userPosts (ctx) {
@@ -79,14 +102,14 @@ async function userPosts (ctx) {
 
 async function addPost (ctx) {
   const user = ctx.params.user
-  ctx.body = await V.newPost(user)
+  ctx.body = await V.newPost(user, ctx)
 }
 
 async function showPost (ctx) {
   const user = ctx.params.user
   const post = M.getPost(user, ctx.params.id)
   if (!post) ctx.throw(404, 'invalid post id')
-  ctx.body = await V.showPost(user, post)
+  ctx.body = await V.showPost(user, post, ctx)
 }
 
 async function createPost (ctx) {
@@ -97,7 +120,8 @@ async function createPost (ctx) {
     ctx.redirect(`/${user}/posts`)
   } else {
     ctx.status = 401
-    ctx.body = '貼文失敗，你不是板主！'
+    ctx.body = V.fail()
+    // ctx.body = '貼文失敗，你不是板主！'
   }
 }
 

@@ -85,7 +85,9 @@ V.listUsers = function (users) {
     list.push(`<li><a href="/${user}/posts">${user} 的留言板</a></li>`)
   }
   return V.layout(`所有留言板列表`, `<h1>所有留言板列表</h1>
-    <a href="/login"><button>登入</button></a> <a href="/logout"><button>登出</button></a>
+    <a href="/login"><button>登入</button></a>
+    <a href="/logout"><button>登出</button></a>
+    <a href="/signup"><button>註冊</button></a>
     <ol>${list.join('\n')}</ol>
   `)
 }
@@ -97,6 +99,19 @@ V.showLogin = function () {
     <p><input type="text" placeholder="User" name="user"></p>
     <p><input type="password" placeholder="Password" name="password"></textarea></p>
     <p><input type="submit" value="登入"/><input type="reset" value="清除"/></p>
+  </form>
+  `)
+}
+
+V.showSignup = function () {
+  return V.layout('註冊', `
+  <h2>註冊</h2>
+  <form action="/signup" method="post">
+    <p><input type="text" placeholder="帳號" name="user"></p>
+    <p><input type="email" placeholder="Email" name="email"></textarea></p>
+    <p><input type="password" placeholder="輸入密碼" name="password"></textarea></p>
+    <p><input type="password" placeholder="確認密碼" name="password2"></textarea></p>
+    <p><input type="submit" value="註冊"/><input type="reset" value="清除"/></p>
   </form>
   `)
 }

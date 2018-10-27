@@ -2,14 +2,12 @@ const M = module.exports = {}
 
 const db = {
   profile: {
-    george: {password: 'george123'},
+    // george: {password: 'george123'},
     ccc: {password: 'ccc123'},
     snoopy: {password: 'snoopy123'}
   },
   users: {
-    george: {
-      posts: []
-    },
+    // george: {posts: []},
     ccc: {
       posts: [
         {id: 0, title: '週三上網站設計', body: '9:10-12:00 在 e321 教室'},
@@ -41,10 +39,20 @@ M.login = function (user, password) {
   return (profile.password === password)
 }
 
+M.signup = function (user) {
+  return db.profile[user] == null
+}
+
+M.addUser = function (passport) {
+  db.profile[passport.user] = passport
+  db.users[passport.user] = {posts: []}
+}
+
 M.userPosts = function (user) {
   const userTable = db.users[user] || {}
+  console.log('userPosts : user=%s userTable=%j', user, userTable)
   const posts = userTable.posts
-  if (posts == null) throw Error('M.userPosts: fail!')
+  // if (posts == null) throw Error('M.userPosts: fail!')
   return posts
 }
 
