@@ -1,0 +1,25 @@
+{
+  "name": "blogmvc",
+  "version": "0.0.1",
+  "description": "簡易網誌系統(經典 server 導向做法)",
+  "main": "app.js",
+  "dependencies": {
+    "koa": "^2.5.3",
+    "koa-body": "^4.0.4",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "markdown-it": "^8.4.2",
+    "mongodb": "^3.1.8"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "should": "^13.2.3",
+    "supertest": "^3.3.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "MIT"
+}
