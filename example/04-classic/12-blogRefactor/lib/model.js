@@ -1,8 +1,12 @@
 const mongodb = require('mongodb')
 
-const M = module.exports = {}
+const M = module.exports = {
+  user: {},
+  post: {},
+  board: {}
+}
 
-M.init = async function () {
+M.start = async function () {
   M.client = await mongodb.MongoClient.connect('mongodb://127.0.0.1:27017/')
   M.db = M.client.db('blogmvc')
   M.boards = M.db.collection('boards')
@@ -13,45 +17,48 @@ M.init = async function () {
   M.profiles.createIndex({ user: 1 })
 }
 
-M.close = async function () {
+M.stop = async function () {
   await M.client.close()
 }
 
-M.boardList = async function () {
+M.board.list = async function () {
   let boards = await M.boards.find({}).toArray()
   return boards
 }
 
-M.login = async function (user, password) {
+// user 相關資料存取函數
+M.user.login = async function (user, password) {
   let profile = await M.profiles.findOne({user: user})
   return (profile.password === password)
 }
 
-M.signup = async function (user) {
+M.user.signup = async function (user) {
   let profile = await M.profiles.findOne({user: user})
   return profile == null
 }
 
-M.userCreate = async function (passport) {
+M.user.create = async function (passport) {
   await M.profiles.insertOne(passport)
   await M.boards.insertOne({board: passport.user})
 }
 
-M.profileGet = async function (user) {
+M.user.profileRead = async function (user) {
   let profile = await M.profiles.findOne({user: user})
   return profile
 }
 
-M.profileUpdate = async function (profile) {
+M.user.profileUpdate = async function (profile) {
   await M.profiles.updateOne({user: profile.user}, {$set: profile}, { upsert: false })
 }
 
-M.postList = async function (board) {
+// post 相關資料存取函數
+
+M.post.list = async function (board) {
   const posts = await M.posts.find({board: board}).sort({created_at: -1}).toArray()
   return posts
 }
 
-M.postCreate = async function (user, board, post) {
+M.post.create = async function (user, board, post) {
   if (user == null) return false
   if (post.file == null) throw Error('addPost: file == null')
   post.user = user
@@ -61,7 +68,7 @@ M.postCreate = async function (user, board, post) {
   return result.insertedId != null
 }
 
-M.postUpdate = async function (user, board, post) {
+M.post.update = async function (user, board, post) {
   if (user == null) return false
   if (post.file == null) throw Error('savePost: file == null')
   post.user = user
@@ -69,7 +76,7 @@ M.postUpdate = async function (user, board, post) {
   return result.modifiedCount === 1
 }
 
-M.postGet = async function (board, file) {
+M.post.read = async function (board, file) {
   let post = await M.posts.findOne({board: board, file: file})
   return post
 }

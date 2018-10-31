@@ -1,7 +1,11 @@
 const MarkdownIt = require('markdown-it')
 const mdit = new MarkdownIt()
 
-const V = module.exports = {}
+const V = module.exports = {
+  board: {},
+  user: {},
+  post: {}
+}
 
 V.layout = function (title, content, ctx) {
   let user = (ctx.session || {}).user
@@ -65,7 +69,19 @@ V.layout = function (title, content, ctx) {
     `
 }
 
-V.boardList = function (boards, ctx) {
+V.fail = function (ctx) {
+  return V.layout('失敗！', '失敗！', ctx)
+}
+
+V.success = function (ctx) {
+  return V.layout('成功！', '成功！', ctx)
+}
+
+V.board.layout = function (board, title, content, ctx) {
+  return V.layout(`${board} 留言板`, content, ctx)
+}
+
+V.board.list = function (boards, ctx) {
   let list = []
   for (let board of boards) {
     list.push(`<li><a href="/post/list?board=${board.board}">${board.board} 留言板</a></li>`)
@@ -73,7 +89,7 @@ V.boardList = function (boards, ctx) {
   return V.layout(`留言板列表`, `<h1>所有留言板</h1><ol>${list.join('\n')}</ol>`, ctx)
 }
 
-V.loginForm = function (ctx) {
+V.user.loginForm = function (ctx) {
   return V.layout('登入', `
   <form action="/user/login" method="post">
     <p><input type="text" placeholder="User" name="user"></p>
@@ -83,7 +99,7 @@ V.loginForm = function (ctx) {
   `, ctx)
 }
 
-V.profileShow = function (profile, ctx) {
+V.user.profileShow = function (profile, ctx) {
   return V.layout('個人檔案', `
   <form action="/user/profileUpdate" method="post">
     <p><input type="text" placeholder="帳號" name="user" value="${profile.user}"></p>
@@ -94,7 +110,7 @@ V.profileShow = function (profile, ctx) {
   `, ctx)
 }
 
-V.signupForm = function (ctx) {
+V.user.signupForm = function (ctx) {
   return V.layout('註冊', `
   <form action="/user/signup" method="post">
     <p><input type="text" placeholder="帳號" name="user"></p>
@@ -106,23 +122,12 @@ V.signupForm = function (ctx) {
   `, ctx)
 }
 
-V.logout = function (ctx) {
+V.user.logout = function (ctx) {
   return V.layout('登出成功！', `回到 <a href="/">首頁！</a>`, ctx)
 }
 
-V.boardLayout = function (board, title, content, ctx) {
-  return V.layout(`${board} 留言板`, content, ctx)
-}
-
-V.fail = function (ctx) {
-  return V.layout('失敗！', '失敗！', ctx)
-}
-
-V.success = function (ctx) {
-  return V.layout('成功！', '成功！', ctx)
-}
-
-V.postList = function (board, posts, ctx) {
+// Post 相關顯示函數
+V.post.list = function (board, posts, ctx) {
   if (posts == null) return V.fail()
   let list = []
   for (let post of posts) {
@@ -141,7 +146,43 @@ V.postList = function (board, posts, ctx) {
     ${list.join('\n')}
   </ol>
   `
-  return V.boardLayout(board, '貼文列表', content, ctx)
+  return V.board.layout(board, '貼文列表', content, ctx)
+}
+
+V.post.createForm = function (board, ctx) {
+  return V.board.layout(board, '新增貼文', `
+  <form action="/post/create?board=${board}" method="post">
+    <p><input type="text" placeholder="Title" name="title" size="40" style="width:100%"></p>
+    <p><textarea placeholder="Contents" name="body"></textarea></p>
+    <p>
+      <input type="text" placeholder="File" name="file" size="10" value="">
+      <input type="submit" value="儲存"/>
+    </p>
+  </form>
+  `, ctx)
+}
+
+V.post.show = function (post, ctx) {
+  return V.board.layout(post.board, post.title, `
+  <div style="float:right">
+    <p><a href="/post/updateForm?board=${post.board}&file=${post.file}"><button>編輯貼文</button></a></p>
+  </div>
+  <h1>${post.title}</h1>
+  <p>${mdit.render(post.body)}</p>
+  `, ctx)
+}
+
+V.post.updateForm = function (post, ctx) {
+  return V.board.layout(post.board, post.title, `
+  <form action="/post/update?board=${post.board}&file=${post.file}" method="post">
+  <p><input type="text" placeholder="Title" name="title" size="40" style="width:100%" value="${post.title}"></p>
+  <p><textarea placeholder="Contents" name="body">${post.body}</textarea></p>
+  <p>
+    <input type="text" placeholder="File" name="file" size="10" value="${post.file}">
+    <input type="submit" value="儲存"/>
+  </p>
+  </form>
+  `, ctx)
 }
 
 /*
@@ -154,38 +195,3 @@ V.guid = function () {
 
 ${V.guid()}
 */
-V.postCreateForm = function (board, ctx) {
-  return V.boardLayout(board, '新增貼文', `
-  <form action="/post/create?board=${board}" method="post">
-    <p><input type="text" placeholder="Title" name="title" size="40" style="width:100%"></p>
-    <p><textarea placeholder="Contents" name="body"></textarea></p>
-    <p>
-      <input type="text" placeholder="File" name="file" size="10" value="">
-      <input type="submit" value="儲存"/>
-    </p>
-  </form>
-  `, ctx)
-}
-
-V.postShow = function (post, ctx) {
-  return V.boardLayout(post.board, post.title, `
-  <div style="float:right">
-    <p><a href="/post/updateForm?board=${post.board}&file=${post.file}"><button>編輯貼文</button></a></p>
-  </div>
-  <h1>${post.title}</h1>
-  <p>${mdit.render(post.body)}</p>
-  `, ctx)
-}
-
-V.postUpdateForm = function (post, ctx) {
-  return V.boardLayout(post.board, post.title, `
-  <form action="/post/update?board=${post.board}&file=${post.file}" method="post">
-  <p><input type="text" placeholder="Title" name="title" size="40" style="width:100%" value="${post.title}"></p>
-  <p><textarea placeholder="Contents" name="body">${post.body}</textarea></p>
-  <p>
-    <input type="text" placeholder="File" name="file" size="10" value="${post.file}">
-    <input type="submit" value="儲存"/>
-  </p>
-  </form>
-  `, ctx)
-}
