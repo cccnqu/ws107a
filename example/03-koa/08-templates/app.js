@@ -22,7 +22,8 @@ const user = {
 // render
 
 app.use(async function(ctx) {
-  await ctx.render('user', { user });
+//  await ctx.render('user', { user });
+  await ctx.render('user2', { user });
 });
 
 if (!module.parent) app.listen(3000);

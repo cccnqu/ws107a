@@ -23,6 +23,7 @@ async function responseTime(ctx, next) {
   await next();
   const ms = new Date() - start;
   ctx.set('X-Response-Time', ms + 'ms');
+  console.log('responseTime: %s', ms);
 }
 
 // logger
@@ -42,6 +43,7 @@ async function respond(ctx, next) {
   await next();
   if ('/' != ctx.url) return;
   ctx.body = 'Hello World';
+  console.log('hello world');
 }
 
 // composed middleware
