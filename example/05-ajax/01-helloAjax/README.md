@@ -3,6 +3,8 @@
 請啟動 app ，然後觀看 http://localhost:3000/
 
 ```
+$ npm i koa koa-static
+...
 $ node app
 // 然後觀看 http://localhost:3000/
 ```

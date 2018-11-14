@@ -116,6 +116,6 @@ V.edit = function (post) {
     <p><input type="text" placeholder="Title" name="title" value="${post.title}"></p>
     <p><textarea placeholder="Contents" name="body">${post.body}</textarea></p>
     <p><input type="submit" value="儲存"></p>
-  </form>
+  </form>  
   `)
 }
