@@ -1,0 +1,11 @@
+{
+  "name": "02-blogajax",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha --timeout 1000000"
+  },
+  "author": "",
+  "license": "ISC"
+}

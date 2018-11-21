@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer')
 var browser, page
 
 const opts = {
-  // headless: false,
+  headless: false,
   slowMo: 100,
   timeout: 10000
 }
