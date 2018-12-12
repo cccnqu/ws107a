@@ -7,7 +7,7 @@ var port = process.env.PORT || 3000;
 
 app.use(async function(ctx, next){
   ctx.type = 'html'
-  ctx.body = fs.createReadStream(__dirname + '/index.html')
+  ctx.body = fs.createReadStream(__dirname + '/index_nojquery.html')
 })
 
 io.on('connection', function(socket){

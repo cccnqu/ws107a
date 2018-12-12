@@ -1,5 +1,10 @@
 # MongoDB
 
+## 安裝
+
+安裝 mongodb 時記得要將 Install MongoDB Compass 的勾勾取消掉，否則安裝到一半常常會當掉！
+
+## 參考
 * [Robomongo — 好用的 MongoDB GUI manager](https://medium.com/@wilsonhuang/robomongo-%E5%A5%BD%E7%94%A8%E7%9A%84-mongodb-gui-manager-87508da806e5)
 
 * export 單一表格

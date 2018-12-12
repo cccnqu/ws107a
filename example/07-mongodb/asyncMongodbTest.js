@@ -1,8 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
+const dbName = 'test'
 
 async function main() {
   // Use connect method to connect to the server
